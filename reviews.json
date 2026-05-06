@@ -52,6 +52,26 @@
     "date": 1777988798
   },
   {
+    "msg_id": 295,
+    "sender": "",
+    "username": "",
+    "text": "",
+    "caption": "",
+    "photo": "images/review_295.jpg",
+    "type": "photo",
+    "date": 1777809600
+  },
+  {
+    "msg_id": 296,
+    "sender": "",
+    "username": "",
+    "text": "",
+    "caption": "",
+    "photo": "images/review_296.jpg",
+    "type": "photo",
+    "date": 1777809600
+  },
+  {
     "msg_id": 316,
     "sender": "Olya Anikeenko",
     "username": "olya1699",
@@ -145,26 +165,6 @@
     "photo": "",
     "type": "text",
     "date": 1774797979
-  },
-  {
-    "msg_id": 295,
-    "sender": "",
-    "username": "",
-    "text": "",
-    "caption": "",
-    "photo": "images/review_295.jpg",
-    "type": "photo",
-    "date": 1774443887
-  },
-  {
-    "msg_id": 296,
-    "sender": "",
-    "username": "",
-    "text": "",
-    "caption": "",
-    "photo": "images/review_296.jpg",
-    "type": "photo",
-    "date": 1774443887
   },
   {
     "msg_id": 299,
