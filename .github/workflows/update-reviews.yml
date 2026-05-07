@@ -24,11 +24,36 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         run: python update_reviews.py
 
+      - name: Update reviews data in index.html
+        run: |
+          python3 << 'PYEOF'
+          import json, re
+
+          with open('reviews.json', 'r', encoding='utf-8') as f:
+              data = json.load(f)
+
+          js_line = 'const REVIEWS = ' + json.dumps(data, ensure_ascii=False, separators=(',', ': ')) + ';'
+
+          with open('index.html', 'r', encoding='utf-8') as f:
+              html = f.read()
+
+          new_html = re.sub(
+              r'^const REVIEWS = \[.*\];$',
+              lambda m: js_line,
+              html, count=1, flags=re.MULTILINE
+          )
+
+          with open('index.html', 'w', encoding='utf-8') as f:
+              f.write(new_html)
+
+          print(f'Updated REVIEWS in index.html ({len(data)} reviews)')
+          PYEOF
+
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f reviews.json users_map.json images/ avatars/ .update_offset
+          git add -f reviews.json users_map.json images/ avatars/ .update_offset index.html
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
