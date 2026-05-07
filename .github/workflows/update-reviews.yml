@@ -25,7 +25,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add reviews.json users_map.json images/ avatars/ .update_offset
+          git add -f reviews.json users_map.json images/ avatars/ .update_offset
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
