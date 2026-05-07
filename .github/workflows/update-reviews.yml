@@ -1,0 +1,34 @@
+name: Update reviews
+
+on:
+  schedule:
+    # Every 6 hours
+    - cron: "0 */6 * * *"
+  workflow_dispatch: # Manual trigger from GitHub UI
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch new reviews from Telegram
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: python update_reviews.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add reviews.json users_map.json images/ avatars/ .update_offset
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-update reviews $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
