@@ -672,7 +672,7 @@ function buildCard(review, index) {
   }
 
   // Sender
-  const senderName = review.sender && review.sender !== 'Deleted Account' ? review.sender : '';
+  const senderName = review.sender && review.sender !== 'Deleted Account' && review.sender !== 'Unknown' ? review.sender : '';
   if (senderName || review.date) {
     const grad = getGradient(senderName || String(review.msg_id));
     const initial = senderName ? getInitial(senderName) : '&#10084;';

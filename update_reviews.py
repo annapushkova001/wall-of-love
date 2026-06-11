@@ -78,7 +78,7 @@ def get_sender(msg):
         if u.get("last_name"):
             name += " " + u["last_name"]
         return name.strip(), u.get("username", ""), u.get("id")
-    return "Unknown", "", None
+    return "", "", None
 
 
 def fetch_avatar(user_id):
@@ -128,6 +128,13 @@ def main():
 
     reviews = load_json(REVIEWS_FILE, [])
     users_map = load_json(USERS_MAP_FILE, {})
+
+    # Clean up any existing "Unknown" senders
+    for r in reviews:
+        if r.get("sender") == "Unknown":
+            r["sender"] = ""
+            log(f"  Cleaned Unknown sender for msg_id={r['msg_id']}")
+
     existing_ids = {r["msg_id"] for r in reviews}
     offset = load_offset()
 
